@@ -39,7 +39,13 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable UUID id){
-        Teacher teacher = new Teacher();
+        Teacher teacher = teacherService.getTeacherById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(teacher);
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Teacher> getTeacherByEmail(@PathVariable String email){
+        Teacher teacher = teacherService.getTeacherByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
@@ -61,7 +67,7 @@ public class TeacherController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTeacherById(@PathVariable UUID id){
-        //teacherService.deteleTeacherById(id)
+        teacherService.deleteTeacherById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Professor com ID: " + id + " foi excluído com sucesso!");
     }
 
