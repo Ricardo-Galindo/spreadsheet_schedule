@@ -36,6 +36,16 @@ public class TeacherService {
         }
     }
 
+    public Teacher getTeacherByEmail(String email){
+        Optional<Teacher> teacher = teacherRepository.findByEmail(email);
+        if (teacher.isPresent()){
+            return teacher.get();
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado");
+        }
+    }
+
     public boolean updatePassword(String email, String newPassword) {
         return teacherRepository.findByEmail(email).map(teacher -> {
             teacher.setPassword(passwordEncoder.encode(newPassword));
@@ -43,6 +53,18 @@ public class TeacherService {
             return true;
         }).orElse(false);
     }
+
+
+    public void deleteTeacherById(UUID id) {
+        if(teacherRepository.existsById(id)){
+            teacherRepository.deleteById(id);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado");
+        }
+    }
+
+
 
 
 }
