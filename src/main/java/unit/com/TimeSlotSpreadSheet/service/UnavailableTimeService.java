@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 import unit.com.TimeSlotSpreadSheet.model.UnavailableTime;
 import unit.com.TimeSlotSpreadSheet.repository.UnavailableTimeRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +32,9 @@ public class UnavailableTimeService {
         }
     }
 
-
+    public List<UnavailableTime> getAllUnavailableTimes() {
+        List<UnavailableTime> unavailableTimes = unavailableTimeRepository.findAll();
+        return unavailableTimes;
+    }
 
 }
