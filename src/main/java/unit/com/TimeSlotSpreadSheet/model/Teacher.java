@@ -32,10 +32,10 @@ public class Teacher {
     @NotBlank()
     private String email;
 
-    @Column(nullable = false,length = 30)
+    @Column(nullable = false,length = 80)
     @NotBlank()
     private String password;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UnavailableTime> unavailableTimes = new ArrayList<>();
 }
