@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import unit.com.TimeSlotSpreadSheet.dto.TeacherResponse;
 import unit.com.TimeSlotSpreadSheet.model.Teacher;
 import unit.com.TimeSlotSpreadSheet.repository.TeacherRepository;
 import unit.com.TimeSlotSpreadSheet.service.TeacherService;
@@ -37,16 +38,17 @@ public class TeacherController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable UUID id){
         Teacher teacher = teacherService.getTeacherById(id);
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<Teacher> getTeacherByEmail(@PathVariable String email){
+    @GetMapping("/email/{email}")
+    public ResponseEntity<TeacherResponse> getTeacherByEmail(@PathVariable String email){
         Teacher teacher = teacherService.getTeacherByEmail(email);
-        return ResponseEntity.status(HttpStatus.OK).body(teacher);
+        TeacherResponse response = teacherService.convertToDTO(teacher);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{email}/password")
